@@ -62,7 +62,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - I have updated NextJS to version 15.1.5 and have also migrated to app router.
 - I have updated sql.js to version 1.12.0.
 - I have changed the sql.js WASM URL to use the Cloudflare CDN with the version specified to 1.12.0. I'm guessing this means this repo will remain as a stable snapshot.
-- The `--turbo` flag does not appear to work with sql.js, so be careful if you copy this example elsewhere.
+- The `--turbo` flag does not appear to work with sql.js, so be careful if you copy this example elsewhere. I think because turbopack differs from webpack and the patch we have in `next.config.js` is not compatible.
 
 ## Credits
 
