@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+'use client';
+
+import { useEffect, useState } from "react";
 import initSqlJs from "sql.js";
 import styles from "../styles/Home.module.css";
 
-export default function SqlJsPage() {
+export default function Page() {
   const [db, setDb] = useState(null);
   const [error, setError] = useState(null);
   const [execResults, setExecResults] = useState(null);
@@ -11,7 +13,7 @@ export default function SqlJsPage() {
     initSqlJs({
       // Fetch sql.js wasm file from CDN
       // This way, we don't need to deal with webpack
-      locateFile: (file) => `https://sql.js.org/dist/${file}`,
+      locateFile: (file) => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/${file}`
     })
       .then((SQL) => setDb(new SQL.Database()))
       .catch((err) => setError(err));
@@ -28,9 +30,6 @@ export default function SqlJsPage() {
     }
   };
 
-  /**
-   * Renders a single value of the array returned by db.exec(...) as a table
-   */
   const ResultTable = ({ columns, values }) => {
     return (
       <table>
@@ -43,18 +42,13 @@ export default function SqlJsPage() {
         </thead>
 
         <tbody>
-          {values.map(
-            (
-              row, // values is an array of arrays representing the results of the query
-              rowIndex
-            ) => (
-              <tr key={rowIndex}>
-                {row.map((value, cellIndex) => (
-                  <td key={cellIndex}>{value}</td>
-                ))}
-              </tr>
-            )
-          )}
+          {values.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {row.map((value, cellIndex) => (
+                <td key={cellIndex}>{value}</td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
     );
